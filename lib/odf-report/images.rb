@@ -37,10 +37,7 @@ module ODFReport
 					office_binary_data = Nokogiri::XML::Node.new "office:binary-data", content
 					office_binary_data.content = base64_data
 					node.add_child(office_binary_data)
-					node.remove_attribute("xlink:href")
-					node.remove_attribute("xlink:type")
-					node.remove_attribute("xlink:show")
-					node.remove_attribute("xlink:actuate")
+					node.xpath("@xlink:href|@xlink:type|@xlink:show|@xlink:actuate").remove
 				end
 			end
 

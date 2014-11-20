@@ -69,10 +69,9 @@ class Report
           @texts.each    { |t| t.replace!(doc) }
           @fields.each   { |f| f.replace!(doc) }
 
+					replace_images_base64(doc)
           find_image_name_matches(doc)
           avoid_duplicate_image_names(doc)
-
-					replace_images_base64(doc)
 
         end
 
