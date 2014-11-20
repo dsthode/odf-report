@@ -12,6 +12,7 @@ class Report
     @tables = []
     @images = {}
     @image_names_replacements = {}
+		@images_base64 = {}
     @sections = []
 
     yield(self)
@@ -50,6 +51,10 @@ class Report
     @images[name] = path
   end
 
+	def add_image_base64(name, base64_data)
+		@images_base64[name] = base64_data
+	end
+
   def generate(dest = nil)
 
     @file.update_content do |file|
@@ -66,6 +71,8 @@ class Report
 
           find_image_name_matches(doc)
           avoid_duplicate_image_names(doc)
+
+					replace_images_base64(doc)
 
         end
 

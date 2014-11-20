@@ -28,6 +28,24 @@ module ODFReport
 
     end # replace_images
 
+		def replace_images_base64(content)
+
+			return if @images_base64.empty?
+
+			@images_base64.each_pair do |image_name, base64_data|
+				if node = content.xpath("//draw:frame[@draw:name='#{image_name}']/draw:image").first
+					office_binary_data = Nokogiri::XML::Node.new "office:binary-data", content
+					office_binary_data.content = base64_data
+					node.add_child(office_binary_data)
+					node.remove_attribute("xlink:href")
+					node.remove_attribute("xlink:type")
+					node.remove_attribute("xlink:show")
+					node.remove_attribute("xlink:actuate")
+				end
+			end
+
+		end # replace_image_base64
+
     # newer versions of LibreOffice can't open files with duplicates image names
     def avoid_duplicate_image_names(content)
 
