@@ -2,6 +2,12 @@ module ODFReport
 
   module Nested
 
+		def add_image_base64(name, data_field=nil, &block)
+			opts = {:name => name, :data_field => data_field}
+			image = ImageBase64.new(opts, &block)
+			@images_base64 << image
+		end
+
     def add_field(name, data_field=nil, &block)
       opts = {:name => name, :data_field => data_field}
       field = Field.new(opts, &block)
@@ -58,5 +64,5 @@ module ODFReport
     end
 
   end
-
+  
 end
